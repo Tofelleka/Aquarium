@@ -18,6 +18,8 @@ namespace Aquarium
 
             while (isWork)
             {
+                _aquarium.ShowAllFish();
+
                 switch (Utils.ReadNumber())
                 {
                     case CommandWait:
@@ -33,7 +35,7 @@ namespace Aquarium
                         break;
 
                     default:
-                        Console.WriteLine("Неверный ввод!");
+                        Illustrator.Instance.ShowErrorInputText();
                         break;
                 }
             }
@@ -41,12 +43,24 @@ namespace Aquarium
 
         private void WaitYear()
         {
-            _aquarium.UbdateLifecycle();
+            _aquarium.UpdateLifecycle();
         }
 
         private void BuyFish()
         {
-            _fishStore.SelectFishToBuy();
+            Fish fish = _fishStore.SelectFishToBuy();
+
+            if (fish != null)
+            {
+                if (_aquarium.AddFish(fish))
+                {
+                    Illustrator.Instance.ShowAddFishMessage();
+                }
+                else
+                {
+                    Illustrator.Instance.ShowErrorQuantityFish();
+                }
+            }
         }
     }
 }

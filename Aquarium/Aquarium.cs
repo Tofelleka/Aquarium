@@ -16,12 +16,21 @@ namespace Aquarium
             }
         }
 
-        internal void AddFish(Fish fish)
+        internal bool AddFish(Fish fish)
         {
-            _fishInAquarium.Add(fish);
+            if (_fishInAquarium.Count < Capacity)
+            {
+                _fishInAquarium.Add(fish);
+
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
-        internal void UbdateLifecycle()
+        internal void UpdateLifecycle()
         {
             for (int i = _fishInAquarium.Count - 1; i >= 0; i--)
             {

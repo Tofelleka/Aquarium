@@ -8,32 +8,37 @@ namespace Aquarium
         {
             int userInput = Utils.ReadNumber() - 1;
 
-            FishType type = (FishType)userInput;
-
-            switch (type)
+            if (Enum.IsDefined(typeof(FishType), userInput))
             {
-                case FishType.Pike:
-                    return CreatePike();
+                FishType type = (FishType)userInput;
 
-                case FishType.Perch:
-                    return CreatePerch();
+                switch (type)
+                {
+                    case FishType.Pike:
+                        return CreatePike();
 
-                case FishType.Carp:
-                    return CreateCarp();
+                    case FishType.Perch:
+                        return CreatePerch();
 
-                case FishType.Trout:
-                    return CreateTrout();
+                    case FishType.Carp:
+                        return CreateCarp();
 
-                case FishType.Catfish:
-                    return CreateCatFish();
+                    case FishType.Trout:
+                        return CreateTrout();
 
-                case FishType.Boot:
-                    return CreateBoot();
+                    case FishType.Catfish:
+                        return CreateCatFish();
 
-                default:
-                    Console.WriteLine("\nНеверный ввод!\n");
-                    return null;
+                    case FishType.Boot:
+                        return CreateBoot();
+                }
             }
+            else
+            {
+                Illustrator.Instance.ShowErrorInputText();
+            }
+
+            return null;
         }
 
         private Fish CreatePike()

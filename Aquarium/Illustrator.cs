@@ -1,4 +1,6 @@
 ﻿
+using System;
+
 namespace Aquarium
 {
     internal class Illustrator
@@ -23,6 +25,21 @@ namespace Aquarium
         internal void ShowFishInfo(Fish fish)
         {
 
+        }
+
+        internal void ShowErrorInputText()
+        {
+            Console.WriteLine("\nНеверный ввод!\n");
+        }
+
+        internal void ShowErrorQuantityFish()
+        {
+            Console.WriteLine("В аквариуме нет места для новых рыбов!");
+        }
+
+        internal void ShowAddFishMessage()
+        {
+            Console.WriteLine("Новый рыб добавлен в аквариум!");
         }
     }
 }
