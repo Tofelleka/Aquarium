@@ -24,7 +24,7 @@ namespace Aquarium
                     fishLines.Add($"{fish.Name,-12} | Возраст: {fish.CurrentAge}");
                 }
 
-                Illustrator.Instance.ShowMainScreen(fishLines);
+                Illustrator.Instance.ShowMainScreen(fishLines, Aquarium.Capacity);
 
                 switch (Utils.ReadNumber())
                 {

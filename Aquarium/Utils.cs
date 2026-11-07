@@ -12,14 +12,14 @@ namespace Aquarium
 
             while (isWork)
             {
-                if (int.TryParse(Console.ReadLine(), out int number) && number > 0)
+                if (int.TryParse(Console.ReadLine(), out int number) && number >= 0)
                 {
                     isWork = false;
                     numberForReturn = number;
                 }
                 else
                 {
-                    Console.WriteLine("\n\nНеверный ввод, это должно быть положительное число.");
+                    Console.WriteLine("\n\nНеверный ввод, это должно быть положительное число или 0.");
                 }
             }
 

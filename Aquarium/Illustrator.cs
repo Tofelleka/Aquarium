@@ -22,7 +22,7 @@ namespace Aquarium
             }
         }
 
-        internal void ShowMainScreen(List<string> fishLines)
+        internal void ShowMainScreen(List<string> fishLines, int capacity)
         {
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Cyan;
@@ -31,7 +31,7 @@ namespace Aquarium
             Console.WriteLine("======================================================================");
             Console.ResetColor();
 
-            Console.WriteLine("\n  ДЕЙСТВИЯ:                             РЫБЫ В АКВАРИУМЕ:");
+            Console.WriteLine($"\n  ДЕЙСТВИЯ:                             РЫБЫ В АКВАРИУМЕ (макс. {capacity}):");
             Console.WriteLine("  ---------------------------------     ------------------------------");
 
             string[] menuLines = {
