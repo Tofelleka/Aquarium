@@ -4,7 +4,9 @@
     {
         static void Main(string[] args)
         {
-        }
+            FishObserver fishObserver = new FishObserver();
 
+            fishObserver.Run();
+        }
     }
 }

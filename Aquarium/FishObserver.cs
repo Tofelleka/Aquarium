@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System.Collections.Generic;
 
 namespace Aquarium
 {
@@ -18,7 +17,14 @@ namespace Aquarium
 
             while (isWork)
             {
-                _aquarium.ShowAllFish();
+                List<string> fishLines = new List<string>();
+
+                foreach (Fish fish in _aquarium.GetFish())
+                {
+                    fishLines.Add($"{fish.Name,-12} | Возраст: {fish.CurrentAge}");
+                }
+
+                Illustrator.Instance.ShowMainScreen(fishLines);
 
                 switch (Utils.ReadNumber())
                 {
@@ -44,22 +50,35 @@ namespace Aquarium
         private void WaitYear()
         {
             _aquarium.UpdateLifecycle();
+
+            Illustrator.Instance.ShowWaitYearMessage();
         }
 
         private void BuyFish()
         {
-            Fish fish = _fishStore.SelectFishToBuy();
+            Illustrator.Instance.ShowStoreMenu();
+
+            int userInput = Utils.ReadNumber() - 1;
+
+            if (userInput < 0) return;
+
+
+            Fish fish = _fishStore.SelectFishToBuy(userInput);
 
             if (fish != null)
             {
                 if (_aquarium.AddFish(fish))
                 {
-                    Illustrator.Instance.ShowAddFishMessage();
+                    Illustrator.Instance.ShowAddFishMessage(fish.Name);
                 }
                 else
                 {
                     Illustrator.Instance.ShowErrorQuantityFish();
                 }
+            }
+            else
+            {
+                Illustrator.Instance.ShowErrorInputText();
             }
         }
     }

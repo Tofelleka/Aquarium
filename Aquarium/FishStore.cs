@@ -4,10 +4,8 @@ namespace Aquarium
 {
     internal class FishStore
     {
-        internal Fish SelectFishToBuy()
+        internal Fish SelectFishToBuy(int userInput)
         {
-            int userInput = Utils.ReadNumber() - 1;
-
             if (Enum.IsDefined(typeof(FishType), userInput))
             {
                 FishType type = (FishType)userInput;
@@ -15,60 +13,26 @@ namespace Aquarium
                 switch (type)
                 {
                     case FishType.Pike:
-                        return CreatePike();
+                        return new Fish("Щука", 25);
 
                     case FishType.Perch:
-                        return CreatePerch();
+                        return new Fish("Окунь", 17);
 
                     case FishType.Carp:
-                        return CreateCarp();
+                        return new Fish("Карп", 34);
 
                     case FishType.Trout:
-                        return CreateTrout();
+                        return new Fish("Форель", 11);
 
                     case FishType.Catfish:
-                        return CreateCatFish();
+                        return new Fish("Сом", 40);
 
                     case FishType.Boot:
-                        return CreateBoot();
+                        return new Fish("Ботинок", 60);
                 }
-            }
-            else
-            {
-                Illustrator.Instance.ShowErrorInputText();
             }
 
             return null;
-        }
-
-        private Fish CreatePike()
-        {
-            return new Fish("Щука", 25);
-        }
-
-        private Fish CreatePerch()
-        {
-            return new Fish("Окунь", 17);
-        }
-
-        private Fish CreateCarp()
-        {
-            return new Fish("Карп", 34);
-        }
-
-        private Fish CreateTrout()
-        {
-            return new Fish("Форель", 11);
-        }
-
-        private Fish CreateCatFish()
-        {
-            return new Fish("Сом", 40);
-        }
-
-        private Fish CreateBoot()
-        {
-            return new Fish("Ботинок", 60);
         }
     }
 }

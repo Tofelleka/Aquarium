@@ -8,12 +8,9 @@ namespace Aquarium
 
         private List<Fish> _fishInAquarium = new List<Fish>();
 
-        internal void ShowAllFish()
+        internal List<Fish> GetFish()
         {
-            foreach(Fish fish in _fishInAquarium)
-            {
-                Illustrator.Instance.ShowFishInfo(fish);
-            }
+            return new List<Fish>(_fishInAquarium);
         }
 
         internal bool AddFish(Fish fish)
@@ -36,6 +33,8 @@ namespace Aquarium
             {
                 if (_fishInAquarium[i].GrowOld())
                 {
+                    Illustrator.Instance.ShowFishDiedMessage(_fishInAquarium[i].Name, _fishInAquarium[i].CurrentAge);
+
                     _fishInAquarium.RemoveAt(i);
                 }
             }
