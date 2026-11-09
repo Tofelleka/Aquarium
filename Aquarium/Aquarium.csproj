@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="Aquarium.cs" />
     <Compile Include="Fish.cs" />
+    <Compile Include="FishCatalog.cs" />
     <Compile Include="FishObserver.cs" />
     <Compile Include="FishStore.cs" />
     <Compile Include="FishType.cs" />

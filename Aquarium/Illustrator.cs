@@ -55,7 +55,7 @@ namespace Aquarium
             Console.WriteLine("======================================================================");
         }
 
-        internal void ShowStoreMenu()
+        internal void ShowStoreMenu(IReadOnlyDictionary<FishType, (string name, int currentAge, string description)> fishes)
         {
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Yellow;
@@ -64,14 +64,13 @@ namespace Aquarium
             Console.WriteLine("======================================================================");
             Console.ResetColor();
 
-            Console.WriteLine("  1 - Щука       | Живет 25 лет. Быстрый хищник с острыми зубами.");
-            Console.WriteLine("  2 - Окунь      | Живет 17 лет. Полосатый, любит прятаться в камнях.");
-            Console.WriteLine("  3 - Карп       | Живет 34 года. Медлительный, но очень выносливый.");
-            Console.WriteLine("  4 - Форель     | Живет 11 лет. Быстрая, пугливая, любит холодную воду.");
-            Console.WriteLine("  5 - Сом        | Живет 40 лет. Гигантский усатый донный житель.");
-            Console.WriteLine("  6 - Ботинок    | Живет 60 лет. Никто не знает, откуда он тут взялся.");
-            Console.WriteLine("======================================================================");
-            Console.Write("  Выберите рыбу (1-6) или 0 для выхода: ");
+            int index = 1;
+            foreach (var pair in fishes)
+            {
+                Console.WriteLine($"  {index} - {pair.Value.name,-10} | Живет {pair.Value.currentAge} лет. {pair.Value.description}");
+                index++;
+            }
+            Console.WriteLine("  0 - Выход");
         }
 
         internal void ShowErrorInputText()
