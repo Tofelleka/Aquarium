@@ -3,26 +3,9 @@ using System.Collections.Generic;
 
 namespace Aquarium
 {
-    internal class Illustrator
+    internal static class Illustrator
     {
-        private static Illustrator _instance;
-
-        private Illustrator() { }
-
-        public static Illustrator Instance
-        {
-            get
-            {
-                if (_instance == null)
-                {
-                    _instance = new Illustrator();
-                }
-
-                return _instance;
-            }
-        }
-
-        internal void ShowMainScreen(List<string> fishLines, int capacity)
+        internal static void ShowMainScreen(List<string> fishLines, int capacity, List<string> menuLines)
         {
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Cyan;
@@ -34,19 +17,11 @@ namespace Aquarium
             Console.WriteLine($"\n  ДЕЙСТВИЯ:                             РЫБЫ В АКВАРИУМЕ (макс. {capacity}):");
             Console.WriteLine("  ---------------------------------     ------------------------------");
 
-            string[] menuLines = {
-                "  1 - Пропустить год",
-                "  2 - Купить рыбу",
-                "  3 - Выход",
-                "",
-                "  Введите команду:"
-            };
-
-            int maxLines = Math.Max(menuLines.Length, fishLines.Count);
+            int maxLines = Math.Max(menuLines.Count, fishLines.Count);
 
             for (int i = 0; i < maxLines; i++)
             {
-                string left = i < menuLines.Length ? menuLines[i] : "";
+                string left = i < menuLines.Count ? menuLines[i] : "";
                 string right = i < fishLines.Count ? fishLines[i] : "";
 
                 Console.WriteLine($"{left,-40} | {right}");
@@ -55,7 +30,7 @@ namespace Aquarium
             Console.WriteLine("======================================================================");
         }
 
-        internal void ShowStoreMenu(IReadOnlyDictionary<FishType, (string name, int currentAge, string description)> fishes)
+        internal static void ShowStoreMenu(IReadOnlyDictionary<FishType, (string name, int maxAge, string description)> fishes, int exitCommand)
         {
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Yellow;
@@ -67,13 +42,13 @@ namespace Aquarium
             int index = 1;
             foreach (var pair in fishes)
             {
-                Console.WriteLine($"  {index} - {pair.Value.name,-10} | Живет {pair.Value.currentAge} лет. {pair.Value.description}");
+                Console.WriteLine($"  {index} - {pair.Value.name,-10} | Живет {pair.Value.maxAge} лет. {pair.Value.description}");
                 index++;
             }
-            Console.WriteLine("  0 - Выход");
+            Console.WriteLine($" {exitCommand} - Выход");
         }
 
-        internal void ShowErrorInputText()
+        internal static void ShowErrorInputText()
         {
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("\n  Неверный ввод!");
@@ -81,7 +56,7 @@ namespace Aquarium
             Console.ReadKey();
         }
 
-        internal void ShowErrorQuantityFish()
+        internal static void ShowErrorQuantityFish()
         {
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("\n  В аквариуме нет места для новых рыбов!");
@@ -89,7 +64,7 @@ namespace Aquarium
             Console.ReadKey();
         }
 
-        internal void ShowAddFishMessage(string fishName)
+        internal static void ShowAddFishMessage(string fishName)
         {
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine($"\n  Новый рыб добавлен в аквариум!");
@@ -97,7 +72,7 @@ namespace Aquarium
             Console.ReadKey();
         }
 
-        internal void ShowFishDiedMessage(string fishName, int age)
+        internal static void ShowFishDiedMessage(string fishName, int age)
         {
             Console.ForegroundColor = ConsoleColor.DarkGray;
             Console.WriteLine($"\n  [ПЕЧАЛЬ] Рыб {fishName} умерла от старости (в возрасте {age} лет)...");
@@ -105,7 +80,7 @@ namespace Aquarium
             Console.ReadKey();
         }
 
-        internal void ShowWaitYearMessage()
+        internal static void ShowWaitYearMessage()
         {
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("\n  Прошел год. Рыбы повзрослели.");

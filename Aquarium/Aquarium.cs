@@ -33,7 +33,7 @@ namespace Aquarium
             {
                 if (_fishInAquarium[i].GrowOld())
                 {
-                    Illustrator.Instance.ShowFishDiedMessage(_fishInAquarium[i].Name, _fishInAquarium[i].CurrentAge);
+                    Illustrator.ShowFishDiedMessage(_fishInAquarium[i].Name, _fishInAquarium[i].CurrentAge);
 
                     _fishInAquarium.RemoveAt(i);
                 }

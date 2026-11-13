@@ -8,8 +8,14 @@ namespace Aquarium
         private const int CommandBuy = 2;
         private const int CommandExit = 3;
 
-        private FishStore _fishStore = new FishStore();
-        private Aquarium _aquarium = new Aquarium();
+        private FishStore _fishStore;
+        private Aquarium _aquarium;
+
+        internal FishObserver(Aquarium aquarium, FishStore fishStore)
+        {
+            _fishStore = fishStore;
+            _aquarium = aquarium;
+        }
 
         internal void Run()
         {
@@ -24,7 +30,16 @@ namespace Aquarium
                     fishLines.Add($"{fish.Name,-12} | Возраст: {fish.CurrentAge}");
                 }
 
-                Illustrator.Instance.ShowMainScreen(fishLines, Aquarium.Capacity);
+                List<string> menuLines = new List<string>
+                {
+            $"  {CommandWait} - Пропустить год",
+            $"  {CommandBuy} - Купить рыбу",
+            $"  {CommandExit} - Выход",
+            "",
+            "  Введите команду:"
+                };
+
+                Illustrator.ShowMainScreen(fishLines, Aquarium.Capacity, menuLines);
 
                 switch (Utils.ReadNumber())
                 {
@@ -41,7 +56,7 @@ namespace Aquarium
                         break;
 
                     default:
-                        Illustrator.Instance.ShowErrorInputText();
+                        Illustrator.ShowErrorInputText();
                         break;
                 }
             }
@@ -51,12 +66,12 @@ namespace Aquarium
         {
             _aquarium.UpdateLifecycle();
 
-            Illustrator.Instance.ShowWaitYearMessage();
+            Illustrator.ShowWaitYearMessage();
         }
 
         private void BuyFish()
         {
-            Illustrator.Instance.ShowStoreMenu();
+            Illustrator.ShowStoreMenu(FishCatalog.GetTemplates(), 0);
 
             int userInput = Utils.ReadNumber() - 1;
 
@@ -69,16 +84,16 @@ namespace Aquarium
             {
                 if (_aquarium.AddFish(fish))
                 {
-                    Illustrator.Instance.ShowAddFishMessage(fish.Name);
+                    Illustrator.ShowAddFishMessage(fish.Name);
                 }
                 else
                 {
-                    Illustrator.Instance.ShowErrorQuantityFish();
+                    Illustrator.ShowErrorQuantityFish();
                 }
             }
             else
             {
-                Illustrator.Instance.ShowErrorInputText();
+                Illustrator.ShowErrorInputText();
             }
         }
     }
